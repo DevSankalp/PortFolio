@@ -1,0 +1,62 @@
+{
+  "name": "Sankalp Srivastava",
+  "title": "Software Developer",
+  "bio": "A collaborative and driven full-stack developer with hands-on experience building responsive web applications using React, Next.js, and Google Cloud. Passionate about solving real-world problems through scalable, user-centric solutions.",
+  "email": "sankalpsrivastava1113@gmail.com",
+  "phone": "+91 73948 36507",
+  "location": "Greater Noida, India",
+  "resumeUrl": "/Sankalp_Resume.pdf",
+  "socials": {
+    "github": "https://github.com/DevSankalp",
+    "linkedin": "https://www.linkedin.com/in/sankalp-srivastava-4b76a622b/"
+  },
+  "skills": {
+    "React": "React.js",
+    "JS": "JavaScript",
+    "TailwindCSS": "TailwindCSS",
+    "Next": "Next.js",
+    "TS": "TypeScript",
+    "Node": "Node.js",
+    "MySQL": "MySQL",
+    "Firebase": "Firebase",
+    "Git": "Git",
+    "GCP": "Google Cloud",
+    "Python": "Python",
+    "Blender": "Blender 3D"
+  },
+  "projects": [
+    {
+      "image": "Projects/Alumni.png",
+      "title": "Alumni Connect (SIH 2024)",
+      "description": "Developed a robust full-stack alumni networking platform aimed at bridging the gap between graduates and current students. The system supports over 1,000 users across various devices and features a smart mentorship-matching algorithm, dynamic user profiles, real-time scalable chat functionality using Firebase, and secure Google Cloud integration. The platform fosters community engagement and simplifies alumni-student interactions in educational ecosystems.",
+      "repo": "https://github.com/DevSankalp/SIH2024",
+      "demo": "https://sih-2024-pearl.vercel.app/"
+    },
+    {
+      "image": "Projects/AssistIQ.png",
+      "title": "AssistIQ (AICTE Approval Automation)",
+      "description": "Designed and developed the frontend for an AICTE approval automation platform that streamlined the traditionally lengthy institutional application process. Leveraging Firebase, TailwindCSS, and an integrated chatbot, the system reduced multi-step form completion time by over 60% for more than 100 educational institutions. The user-centric interface and progressive enhancements ensured scalability, accessibility, and significant administrative cost savings.",
+      "repo": "https://github.com/DevSankalp/SIH2023",
+      "demo": "https://fusionx23.vercel.app/"
+    },
+    {
+      "image": "Projects/FusionX.png",
+      "title": "FusionX - Startup Support Platform",
+      "description": "Built a comprehensive cross-platform solution to connect startups with mentors and investors, focusing on accelerating early-stage growth and networking opportunities. The platform included tailored onboarding flows, dynamic user dashboards, and AI-curated recommendations. Conducted over 10 UX testing sessions, which helped improve usability and led to a 30% boost in task completion rates. It also featured modular components and scalable APIs for seamless integration and long-term sustainability.",
+      "repo": "https://github.com/DevSankalp/fusionx",
+      "demo": "https://fusion-x.vercel.app/"
+    }
+  ],
+  "certifications": [
+    "AWS Cloud Virtual Internship (2022)",
+    "Google Cloud Career Practitioner (2023)"
+  ],
+  "achievements": [
+    "SIH National Runner-Up (2023)",
+    "SIH Pre-Qualifier Winner (2023)",
+    "Flipkart Grid 5.0 Participant",
+    "Dexterix 3.0 & 4.0",
+    "NASA Space Apps Challenge (2022)"
+  ],
+  "roles": ["Tech Lead @CyberCell", "Member @Technojam"]
+}
