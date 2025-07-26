@@ -16,9 +16,11 @@ export default function Page() {
   const showTopBtn = useScrollTopVisibility();
   // --- Preloader logic: wait for GitHub profile and repos to load ---
   const { loading: profileLoading } = useGitHubProfile();
-  const repoNames = ["SIH2023", "FusionX", ""];
-  // Call useGitHubRepo for each repo at the top level
-  const repoHooks = repoNames.map((name) => useGitHubRepo(name));
+  // Call useGitHubRepo for each repo at the top level (no .map)
+  const repo1 = useGitHubRepo("SIH2023");
+  const repo2 = useGitHubRepo("FusionX");
+  const repo3 = useGitHubRepo("");
+  const repoHooks = [repo1, repo2, repo3];
   const { validRepos } = useRepoCarousel(repoHooks);
   // If any repo is still loading, keep preloader
   const reposLoading = validRepos.some((r) => r.loading);

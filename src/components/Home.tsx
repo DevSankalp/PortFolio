@@ -24,9 +24,12 @@ export default function HomeSection() {
   const { profile } = useGitHubProfile();
 
   // List your repo names here (add/remove as needed)
+  // Call useGitHubRepo for each repo at the top level (no .map)
   const repoNames = ["SIH2023", "FusionX", "SIH2024"];
-  // Call useGitHubRepo for each repo at the top level
-  const repoHooks = repoNames.map((name) => useGitHubRepo(name));
+  const repo1 = useGitHubRepo(repoNames[0]);
+  const repo2 = useGitHubRepo(repoNames[1]);
+  const repo3 = useGitHubRepo(repoNames[2]);
+  const repoHooks = [repo1, repo2, repo3];
   // Custom hook: returns valid repos and current index for carousel
   const { validRepos, currentRepo } = useRepoCarousel(repoHooks);
 
