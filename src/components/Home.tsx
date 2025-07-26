@@ -7,9 +7,10 @@ import {
   scrollToContact,
   useRepoCarousel,
 } from "@/helpers";
+import { useGitHubRepo } from "@/helpers/useGitHubRepo";
 import { useGitHubProfile } from "@/helpers/useGitHubProfile";
 import Typewriter from "typewriter-effect";
-import { ArrowDown, Layers2, Users, Plus } from "lucide-react";
+import { ArrowDown, Layers2 } from "lucide-react";
 import data from "@/data/portfolioData.json";
 import Image from "next/image";
 
@@ -24,9 +25,10 @@ export default function HomeSection() {
 
   // List your repo names here (add/remove as needed)
   const repoNames = ["SIH2023", "FusionX", "SIH2024"];
-
+  // Call useGitHubRepo for each repo at the top level
+  const repoHooks = repoNames.map((name) => useGitHubRepo(name));
   // Custom hook: returns valid repos and current index for carousel
-  const { validRepos, currentRepo } = useRepoCarousel(repoNames);
+  const { validRepos, currentRepo } = useRepoCarousel(repoHooks);
 
   return (
     <section className="min-h-screen p-16 grid grid-cols-2 w-full">

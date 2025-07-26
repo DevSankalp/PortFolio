@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { useGitHubRepo } from "./useGitHubRepo";
 
 // Hook: Show scroll-to-top button
@@ -6,6 +6,7 @@ export function useScrollTopVisibility(threshold: number = 300) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const onScroll = () => {
       setVisible(window.scrollY > threshold);
     };
@@ -21,6 +22,7 @@ export function useScrolled(offset: number = 10) {
   const [scrolled, setScrolled] = useState(false);
 
   useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
     const handleScroll = () => {
       setScrolled(window.scrollY > offset);
     };
@@ -34,18 +36,36 @@ export function useScrolled(offset: number = 10) {
 
 // Utility: Scroll to top
 export const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (typeof window !== "undefined") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 };
 
 // Utility: Scroll to projects section using Lenis
-export const scrollToProjects = (lenisRef: any) => {
+export const scrollToProjects = (
+  lenisRef: React.RefObject<{
+    scrollTo: (
+      target: HTMLElement,
+      options: { offset: number; duration: number }
+    ) => void;
+  } | null>
+) => {
+  if (typeof document === "undefined") return;
   const target = document.getElementById("projects");
   if (target && lenisRef.current) {
     lenisRef.current.scrollTo(target, { offset: 0, duration: 2 });
   }
 };
 
-export const scrollToContact = (lenisRef: any) => {
+export const scrollToContact = (
+  lenisRef: React.RefObject<{
+    scrollTo: (
+      target: HTMLElement,
+      options: { offset: number; duration: number }
+    ) => void;
+  } | null>
+) => {
+  if (typeof document === "undefined") return;
   const target = document.getElementById("contact");
   if (target && lenisRef.current) {
     lenisRef.current.scrollTo(target, { offset: 0, duration: 2 });
@@ -57,6 +77,7 @@ export function useHideScrollButton(threshold: number = 100) {
   const [hideButton, setHideButton] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const handleScroll = () => {
       setHideButton(window.scrollY > threshold);
     };
@@ -77,6 +98,7 @@ export function useActiveProjectIndex() {
 // Hook: Slide-in animation when element is in viewport
 export function useSlideInOnVisible(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const handleScroll = () => {
       if (ref.current) {
         const { top, bottom } = ref.current.getBoundingClientRect();
@@ -97,9 +119,10 @@ export function useSlideInOnVisible(ref: React.RefObject<HTMLElement | null>) {
 }
 
 // Hook: GitHub Repository Carousel
-export function useRepoCarousel(repoNames: string[]) {
-  const repoHooks = repoNames.map((repo) => useGitHubRepo(repo));
-
+// Usage: Call useGitHubRepo for each repo at the top level of your component, then pass the array of results here.
+export function useRepoCarousel(
+  repoHooks: Array<ReturnType<typeof useGitHubRepo>>
+) {
   const validRepos = repoHooks
     .map((hook, idx) => ({ ...hook, idx }))
     .filter(({ repoData }) => repoData && repoData.full_name);

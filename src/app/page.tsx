@@ -10,13 +10,16 @@ import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
 import { useGitHubProfile } from "@/helpers/useGitHubProfile";
 import { useRepoCarousel } from "@/helpers";
+import { useGitHubRepo } from "@/helpers/useGitHubRepo";
 
 export default function Page() {
   const showTopBtn = useScrollTopVisibility();
   // --- Preloader logic: wait for GitHub profile and repos to load ---
   const { loading: profileLoading } = useGitHubProfile();
   const repoNames = ["SIH2023", "FusionX", ""];
-  const { validRepos } = useRepoCarousel(repoNames);
+  // Call useGitHubRepo for each repo at the top level
+  const repoHooks = repoNames.map((name) => useGitHubRepo(name));
+  const { validRepos } = useRepoCarousel(repoHooks);
   // If any repo is still loading, keep preloader
   const reposLoading = validRepos.some((r) => r.loading);
   const loading = profileLoading || reposLoading;
