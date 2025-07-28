@@ -34,7 +34,7 @@
     },
     {
       "image": "Projects/AssistIQ.png",
-      "title": "AssistIQ (AICTE Approval Automation)",
+      "title": "AssistIQ (AICTE Approval)",
       "description": "Designed and developed the frontend for an AICTE approval automation platform that streamlined the traditionally lengthy institutional application process. Leveraging Firebase, TailwindCSS, and an integrated chatbot, the system reduced multi-step form completion time by over 60% for more than 100 educational institutions. The user-centric interface and progressive enhancements ensured scalability, accessibility, and significant administrative cost savings.",
       "repo": "https://github.com/DevSankalp/SIH2023",
       "demo": "https://fusionx23.vercel.app/"

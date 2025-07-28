@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import ParallaxProviderWrapper from "./ParallaxProviderWrapper";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.className}>
       <body className="text-white antialiased scroll-smooth bg-transparent">
-        <ParallaxProviderWrapper>{children}</ParallaxProviderWrapper>
+        {children}
       </body>
     </html>
   );

@@ -14,31 +14,24 @@ import { ArrowDown, Layers2 } from "lucide-react";
 import data from "@/data/portfolioData.json";
 import Image from "next/image";
 
-// HomeSection: Main landing section with intro, GitHub profile, and repo carousel
 export default function HomeSection() {
-  // Smooth scroll and UI state
   const lenisRef = useLenis();
   const hideButton = useHideScrollButton();
-
-  // GitHub profile data
   const { profile } = useGitHubProfile();
-
-  // List your repo names here (add/remove as needed)
-  // Call useGitHubRepo for each repo at the top level (no .map)
   const repoNames = ["SIH2023", "FusionX", "SIH2024"];
-  const repo1 = useGitHubRepo(repoNames[0]);
-  const repo2 = useGitHubRepo(repoNames[1]);
-  const repo3 = useGitHubRepo(repoNames[2]);
-  const repoHooks = [repo1, repo2, repo3];
-  // Custom hook: returns valid repos and current index for carousel
+  const repoHooks = repoNames.map(useGitHubRepo);
+  // Get valid repos and current index for carousel
   const { validRepos, currentRepo } = useRepoCarousel(repoHooks);
 
   return (
-    <section className="min-h-screen p-16 grid grid-cols-2 w-full">
+    <section className="min-h-screen w-full px-6 py-10 md:px-16 md:py-16 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-0 relative">
       {/* Left Column: Introduction and bio */}
-      <div id="home" className="h-max max-w-2xl mt-32 col-start-1">
-        <h1 className="text-transparent bg-[linear-gradient(270deg,rgba(186,69,222,1)0%,rgba(93,24,204,1)52%,rgba(0,255,225,1)100%)] bg-clip-text text-5xl sm:text-6xl font-bold mb-8">
-          {/* Animated typewriter intro */}
+      <div
+        id="home"
+        className="h-2/3 md:h-max flex md:block flex-col items-center justify-center max-w-2xl px-4 md:p-0 m-0 md:mt-32 col-start-1"
+      >
+        {/* Gradient animated typewriter heading */}
+        <h1 className="text-transparent bg-[linear-gradient(270deg,rgba(186,69,222,1)0%,rgba(93,24,204,1)52%,rgba(0,255,225,1)100%)] bg-clip-text text-5xl md:text-6xl font-bold mb-8">
           <Typewriter
             options={{
               strings: [
@@ -53,13 +46,13 @@ export default function HomeSection() {
             }}
           />
         </h1>
-        <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-justify">
+        <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-justify text-base sm:text-lg">
           {data.bio}
         </p>
       </div>
 
-      {/* Right Column: GitHub profile and repo carousel */}
-      <div className="flex flex-col items-end justify-center gap-8">
+      {/* Right Column: GitHub profile and repo carousel (hidden on mobile) */}
+      <div className="w-full hidden md:flex flex-col items-end gap-8 mt-10">
         {/* GitHub Profile Card */}
         {profile && (
           <div className="flex flex-col p-8 rounded-xl bg-gray-300/10 backdrop-blur-sm shadow-md">
@@ -71,13 +64,15 @@ export default function HomeSection() {
               >
                 <Image
                   src={profile.avatar_url}
-                  alt={`${profile.name}'s avatar`}
+                  alt={profile.name}
                   width={200}
                   height={200}
                   className="border-2 border-slate-400 rounded-full mb-4"
                 />
               </a>
-              <h2 className="w-full text-3xl font-semibold">{profile.name}</h2>
+              <h2 className="w-full text-2xl sm:text-3xl font-semibold">
+                {profile.name}
+              </h2>
               <a
                 href={profile.html_url}
                 target="_blank"
@@ -88,7 +83,7 @@ export default function HomeSection() {
               </a>
             </div>
             <p className="mt-1 text-sm">{profile.location}</p>
-            <div className="text-gray-400 mt-4 flex gap-2">
+            <div className="text-gray-400 mt-4 flex gap-2 flex-wrap">
               <a
                 href={`${profile.html_url}?tab=repositories`}
                 target="_blank"
@@ -104,20 +99,17 @@ export default function HomeSection() {
           </div>
         )}
 
-        {/* GitHub Repository Carousel: fade between repos */}
-        <div className="w-full flex flex-col items-end gap-4 min-h-[260px]">
-          {validRepos.map(({ repoData, idx }, i) => {
-            if (!repoData) return null;
-            const isActive = i === currentRepo;
-            return (
+        {/* GitHub Repository Carousel */}
+        <div className="w-full flex flex-col items-end gap-4">
+          {validRepos.map(({ repoData }, i) =>
+            repoData ? (
               <div
-                key={repoData.full_name || repoNames[idx]}
+                key={repoData.full_name}
                 className={`flex flex-col p-6 rounded-xl bg-gray-300/10 backdrop-blur-sm shadow-md w-full max-w-md transition-opacity duration-700 ${
-                  isActive
-                    ? "opacity-100"
-                    : "opacity-0 pointer-events-none absolute"
+                  i === currentRepo
+                    ? "opacity-100 relative z-10"
+                    : "opacity-0 pointer-events-none absolute z-0"
                 }`}
-                style={{ zIndex: isActive ? 1 : 0 }}
               >
                 <a
                   href={repoData.html_url}
@@ -127,13 +119,15 @@ export default function HomeSection() {
                 >
                   {repoData.full_name}
                 </a>
-                <p className="text-gray-400 mb-2">{repoData.description}</p>
-                <div className="flex gap-4 text-sm text-gray-500 mb-2">
+                <p className="text-gray-400 mb-2 text-base">
+                  {repoData.description}
+                </p>
+                <div className="flex gap-4 text-sm text-gray-500 mb-2 flex-wrap">
                   <span>⭐ {repoData.stargazers_count} stars</span>
                   <span>🍴 {repoData.forks_count} forks</span>
                   <span>🐞 {repoData.open_issues_count} issues</span>
                 </div>
-                <div className="flex items-center gap-2 mt-2">
+                <div className="flex items-center gap-2 mt-2 flex-wrap">
                   {repoData.owner && (
                     <>
                       <Image
@@ -160,35 +154,37 @@ export default function HomeSection() {
                   )}
                 </div>
               </div>
-            );
-          })}
+            ) : null
+          )}
         </div>
       </div>
 
       {/* Scroll Buttons: Projects & Contact */}
-      <div className="absolute bottom-16 left-24 flex items-center gap-4 duration-300">
-        <div
-          onClick={() => scrollToProjects(lenisRef)}
-          className={`uppercase text-gray-400 text-3xl flex items-center gap-2 group hover:opacity-70 cursor-pointer transition-transform duration-500 ${
-            hideButton ? "-translate-x-72" : "translate-x-0"
-          }`}
-        >
-          <p className="relative before:absolute before:w-0 group-hover:before:w-full before:h-[1px] before:bottom-0 before:bg-gray-400 before:duration-300">
-            Projects
-          </p>
-          <ArrowDown className="animate-bounce" />
-        </div>
-        <div
-          onClick={() => scrollToContact(lenisRef)}
-          className={`uppercase text-gray-400 text-3xl flex items-center gap-2 group hover:opacity-70 cursor-pointer transition-transform duration-500 delay-300 ${
-            hideButton ? "-translate-x-144" : "translate-x-0"
-          }`}
-        >
-          <p className="relative before:absolute before:w-0 group-hover:before:w-full before:h-[1px] before:bottom-0 before:bg-gray-400 before:duration-300">
-            Contact
-          </p>
-          <ArrowDown className="animate-bounce" />
-        </div>
+      <div className="uppercase text-gray-400 md:text-3xl absolute bottom-4 md:bottom-16 left-1/5 md:left-24 flex items-center gap-4 duration-300">
+        {/* Map over scroll actions for Projects and Contact */}
+        {[
+          { label: "Projects", action: scrollToProjects },
+          { label: "Contact", action: scrollToContact },
+        ].map(({ label, action }, idx) => (
+          <div
+            key={label}
+            onClick={() => action(lenisRef)}
+            className={`flex items-center gap-2 group hover:opacity-70 cursor-pointer transition-transform duration-500${
+              idx === 1 ? " delay-300" : ""
+            } ${
+              hideButton
+                ? idx === 0
+                  ? "-translate-x-72"
+                  : "-translate-x-144"
+                : "translate-x-0"
+            }`}
+          >
+            <p className="relative before:absolute before:w-0 group-hover:before:w-full before:h-[1px] before:bottom-0 before:bg-gray-400 before:duration-300">
+              {label}
+            </p>
+            <ArrowDown className="animate-bounce" />
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -37,7 +37,7 @@ export default function Preloader({
     >
       <div className="flex flex-col items-center">
         {/* Lottie loading animation */}
-        <div className="w-150 h-150 mb-4">
+        <div className="w-100 md:w-150 h-100 md:h-150 mb-4">
           <DotLottieReact
             src="https://lottie.host/bd1c5ed7-2b4a-4b2a-b139-e660bd8e7863/PQinRptImL.lottie"
             loop
