@@ -27,9 +27,11 @@ export default function Page() {
       <Home />
       <Projects />
       <Footer />
+
+      {/* Scroll to top button */}
       <button
         onClick={scrollToTop}
-        className={`p-2 md:p-3 fixed bottom-6 right-6 bg-black hover:bg-blue-500 text-white rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.4)] transition duration-300 cursor-pointer active:scale-90 z-10 ${
+        className={`p-2 md:p-3 fixed bottom-6 md:bottom-16 right-6 bg-black hover:bg-blue-500 text-white rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.4)] transition duration-300 cursor-pointer active:scale-90 z-10 ${
           showTopBtn ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
         }`}
       >

@@ -42,10 +42,10 @@ export default function SlickVerticalCarousel() {
   return (
     <section
       id="projects"
-      className="min-h-screen w-full p-0 md:px-16 md:pt-32 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24 relative overflow-clip gradient-bg"
+      className="min-h-screen w-full p-0 md:px-16 md:pb-32 md:pt-32 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24 relative overflow-clip gradient-bg"
     >
       {/* Left panel: title + dynamic project info */}
-      <div className="w-full h-[45vh] md:h-[75vh] p-4 md:p-0 sticky top-0 md:top-[25vh] before:hidden sm:before:block before:absolute before:w-1/2 before:h-4 before:bg-white before:right-0 before:bottom-12 z-1 gradient-bg md:!bg-none">
+      <div className="w-full h-[45vh] md:h-[75vh] p-4 md:p-0 sticky top-0 md:top-[20vh] before:hidden sm:before:block before:absolute before:w-1/2 before:h-4 before:bg-white before:right-0 before:bottom-12 z-1 gradient-bg md:!bg-none">
         <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-12 uppercase">
           Projects
         </h1>
@@ -99,11 +99,11 @@ export default function SlickVerticalCarousel() {
             className="active:scale-95 duration-300 w-full flex justify-center md:block relative"
           >
             <div className="h-screen">
-              <div className="sticky top-[38vh] md:top-[35vh]">
+              <div className="sticky top-[38vh] md:top-[30vh]">
                 <a
                   href={project.demo}
                   target="_blank"
-                  className="relative flex items-center justify-center md:block w-full max-w-[800px] h-[450px] scale-100 inset-0 duration-300 transition-all hover:inset-[-12px_16px] hover:scale-105 before:hidden sm:before:block before:absolute before:w-4 before:h-1/3 before:bg-white before:-left-8 before:top-0 before:duration-300 hover:before:opacity-0 after:hidden sm:after:block after:absolute after:w-1/3 after:h-4 after:bg-white after:-top-12 after:right-2 after:border-1 after:border-black hover:after:opacity-0 after:duration-300 before:pointer-events-none after:pointer-events-none"
+                  className="relative flex items-center justify-center md:block w-full max-w-[800px] max-h-[400px] scale-100 inset-0 duration-300 transition-all hover:inset-[-16px_-20px] hover:scale-110 before:hidden sm:before:block before:absolute before:w-4 before:h-1/3 before:bg-white before:-left-8 before:top-0 before:duration-300 hover:before:opacity-0 after:hidden sm:after:block after:absolute after:w-1/3 after:h-4 after:bg-white after:-top-12 after:right-2 after:border-1 after:border-black hover:after:opacity-0 after:duration-300 before:pointer-events-none after:pointer-events-none"
                 >
                   <iframe
                     src={project.demo}

@@ -65,20 +65,26 @@ body {
   border: none;
   background-color: white;
 }
-
-/* Adjust iframe size for small screens */
 @media (max-width: 640px) {
   .responsiveIframe {
     width: 600px;
     height: 600px;
   }
 }
-
-/* Adjust iframe size and origin for medium screens and above */
 @media (min-width: 768px) {
   .responsiveIframe {
     transform-origin: top left;
     width: 1280px;
     height: 800px;
+  }
+}
+
+/* Animation for scrolling skills section */
+@keyframes scrollSkills {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }

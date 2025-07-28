@@ -12,9 +12,39 @@ import { useGitHubProfile } from "@/helpers/useGitHubProfile";
 import Typewriter from "typewriter-effect";
 import { ArrowDown, Layers2 } from "lucide-react";
 import data from "@/data/portfolioData.json";
+import {
+  FaReact,
+  FaNodeJs,
+  FaGitAlt,
+  FaPython,
+  FaDatabase,
+} from "react-icons/fa";
+import {
+  SiTailwindcss,
+  SiNextdotjs,
+  SiTypescript,
+  SiFirebase,
+  SiGooglecloud,
+  SiBlender,
+} from "react-icons/si";
 import Image from "next/image";
 
 export default function HomeSection() {
+  // Map skill keys to their respective icon components
+  const skillIcons: Record<string, React.ReactNode> = {
+    React: <FaReact />,
+    JS: <FaDatabase />,
+    TailwindCSS: <SiTailwindcss />,
+    Next: <SiNextdotjs />,
+    TS: <SiTypescript />,
+    Node: <FaNodeJs />,
+    MySQL: <FaDatabase />,
+    Firebase: <SiFirebase />,
+    Git: <FaGitAlt />,
+    GCP: <SiGooglecloud />,
+    Python: <FaPython />,
+    Blender: <SiBlender />,
+  };
   const lenisRef = useLenis();
   const hideButton = useHideScrollButton();
   const { profile } = useGitHubProfile();
@@ -25,30 +55,63 @@ export default function HomeSection() {
 
   return (
     <section className="min-h-screen w-full px-6 py-10 md:px-16 md:py-16 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-0 relative">
-      {/* Left Column: Introduction and bio */}
+      {/* Left Column: Introduction and Skills*/}
       <div
         id="home"
-        className="h-2/3 md:h-max flex md:block flex-col items-center justify-center max-w-2xl px-4 md:p-0 m-0 md:mt-32 col-start-1"
+        className="md:h-max flex flex-col items-center justify-center gap-16 md:gap-8 max-w-2xl px-4 md:p-0 m-0 md:mt-32 col-start-1"
       >
-        {/* Gradient animated typewriter heading */}
-        <h1 className="text-transparent bg-[linear-gradient(270deg,rgba(186,69,222,1)0%,rgba(93,24,204,1)52%,rgba(0,255,225,1)100%)] bg-clip-text text-5xl md:text-6xl font-bold mb-8">
-          <Typewriter
-            options={{
-              strings: [
-                "Hello, I'm Sankalp",
-                "Web Developer",
-                "Cloud Enthusiast",
-              ],
-              autoStart: true,
-              loop: true,
-              delay: 50,
-              deleteSpeed: 30,
-            }}
-          />
-        </h1>
-        <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-justify text-base sm:text-lg">
-          {data.bio}
-        </p>
+        {/* Header */}
+        <div>
+          <h1 className="text-transparent bg-[linear-gradient(270deg,rgba(186,69,222,1)0%,rgba(93,24,204,1)52%,rgba(0,255,225,1)100%)] bg-clip-text text-5xl md:text-6xl font-bold mb-8">
+            <Typewriter
+              options={{
+                strings: [
+                  "Hello, I'm Sankalp",
+                  "Web Developer",
+                  "Cloud Enthusiast",
+                ],
+                autoStart: true,
+                loop: true,
+                delay: 50,
+                deleteSpeed: 30,
+              }}
+            />
+          </h1>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-justify text-base sm:text-lg">
+            {data.bio}
+          </p>
+        </div>
+
+        {/* Skills Section */}
+        <div className="w-full">
+          {/* Horizontal carousel*/}
+          <div className="relative w-full overflow-hidden">
+            <div
+              className="min-h-32 flex items-center gap-8 animate-scroll-skills"
+              style={{
+                animation: "scrollSkills 20s linear infinite",
+                minWidth: "max-content",
+              }}
+            >
+              {[
+                ...Object.entries(data.skills),
+                ...Object.entries(data.skills),
+              ].map(([key, value], idx) => (
+                <div
+                  key={key + idx}
+                  className="flex items-center justify-center gap-2 py-2 px-4 rounded-full bg-gray-800/80 shadow-lg border border-gray-700 hover:shadow-xl  hover:scale-105 transition-all duration-200 group min-w-[120px]"
+                >
+                  <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[linear-gradient(270deg,rgba(186,69,222,1)0%,rgba(93,24,204,1)52%,rgba(0,255,225,1)100%)] text-white text-2xl group-hover:scale-110 transition-transform duration-200">
+                    {skillIcons[key]}
+                  </div>
+                  <span className="text-base font-semibold text-gray-900 dark:text-gray-100 tracking-tight text-center">
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Right Column: GitHub profile and repo carousel (hidden on mobile) */}
